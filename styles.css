@@ -1,0 +1,53 @@
+.grid-container{
+    display: grid;
+    grid-template-columns: repeat(3, 20vw);
+    grid-template-rows: repeat(3, 20vw);
+    gap: 1vw;
+    outline: 1px red solid
+    
+}
+
+.cell {
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    outline: 1px green solid
+}
+
+.cell.x::before{
+    content: '';
+    position: absolute;
+    width: 10%;
+    height: 80%;
+    background: red; 
+    rotate: 45deg;
+    border-radius: 99px;
+}
+.cell.x::after{
+    content: '';
+    position: absolute;
+    width: 10%;
+    height: 80%;
+    background: red; 
+    rotate: -45deg;
+    border-radius: 99px;
+}
+.cell.o::before{
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    background: red;
+    border-radius: 50%;
+}
+.cell.o::after{
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    background: white;
+    border-radius: 50%;
+}

@@ -18,7 +18,7 @@ randomPlayButton.addEventListener("click", () => {
         cellArray.splice(cellArray.indexOf(randomIndex), 1);
         turn = turn === "x" ? "o" : "x";
         let result = winnerCheck();
-        if (result==='x' || result==='o') break;
+        if (result === "x" || result === "o") break;
     }
 });
 
@@ -39,7 +39,10 @@ function play(cell) {
     }
 
     //checking if we have a winner
-    winnerCheck();
+    let result = winnerCheck();
+    if (result === "x" || result === "o") {
+        console.log(`result is: ${result}`)
+    } //TODO: the end needs to be defined and stop from clicking the cells
     // toggles the turn
     turn = turn === "x" ? "o" : "x";
 }
@@ -63,6 +66,7 @@ function winnerCheck() {
         }
         grid.push(mark);
     });
+    //FIXME: add tie case
 
     //winner logic
     //vertical cells check

@@ -1,10 +1,15 @@
-.grid-container{
+:root{
+    --player-1-color: repeating-linear-gradient(rgb(76, 0, 255), rgb(0, 217, 255));
+    --player-2-color: repeating-linear-gradient(rgb(0, 247, 255), rgb(255, 0, 128));
+}
+
+.grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 20vw);
-    grid-template-rows: repeat(3, 20vw);
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
     gap: 1vw;
-    outline: 1px red solid
-    
+    width: 80vh;
+    height: 80vh;
 }
 
 .cell {
@@ -14,40 +19,57 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    outline: 1px green solid
+    border: 2px rgb(132, 0, 255) solid;
 }
 
-.cell.x::before{
-    content: '';
+.cell.x::before {
+    content: "";
     position: absolute;
     width: 10%;
     height: 80%;
-    background: red; 
+    background: var(--player-1-color);
     rotate: 45deg;
     border-radius: 99px;
 }
-.cell.x::after{
-    content: '';
+.cell.x::after {
+    content: "";
     position: absolute;
     width: 10%;
     height: 80%;
-    background: red; 
+    background:var(--player-1-color);
     rotate: -45deg;
     border-radius: 99px;
 }
-.cell.o::before{
-    content: '';
+.cell.o::before {
+    content: "";
     position: absolute;
     width: 80%;
     height: 80%;
-    background: red;
+    background: var(--player-2-color);
     border-radius: 50%;
 }
-.cell.o::after{
-    content: '';
+.cell.o::after {
+    content: "";
     position: absolute;
     width: 60%;
     height: 60%;
     background: white;
     border-radius: 50%;
+}
+
+.cell:nth-child(3n+1){
+    border-left: 0;
+}
+.cell:nth-child(1),
+.cell:nth-child(2),
+.cell:nth-child(3){
+    border-top: 0;
+}
+.cell:nth-child(3n+3){
+    border-right: 0;
+}
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:nth-child(9){
+    border-bottom: 0;
 }

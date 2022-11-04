@@ -41,8 +41,12 @@ function play(cell) {
     //checking if we have a winner
     let result = winnerCheck();
     if (result === "x" || result === "o") {
-        console.log(`result is: ${result}`)
+        console.log(`result is: ${result}`);
     } //TODO: the end needs to be defined and stop from clicking the cells
+
+    if (result === "tie") {
+        console.log(`result is: ${result}`);
+    }
     // toggles the turn
     turn = turn === "x" ? "o" : "x";
 }
@@ -66,7 +70,6 @@ function winnerCheck() {
         }
         grid.push(mark);
     });
-    //FIXME: add tie case
 
     //winner logic
     //vertical cells check
@@ -106,9 +109,35 @@ function winnerCheck() {
         console.log(`The ${grid[2]} is the WINNER!`);
         return grid[2];
     }
+
+    //tie
+    console.log(`It's a Tie`);
+    return "tie";
+
     // TODO: should be stopping the game here
 }
 
 function are3EqualAndNotNull(a, b, c) {
     return a === b && b === c && a !== null;
+}
+
+function drawALine() {
+    const canvas = document.createElement("canvas");
+    canvas.width = 300;
+    canvas.height = 300;
+    canvas.style = "position: absolute;";
+    const gridContainer = document.querySelector("[data-grid-container]");
+    gridContainer.appendChild(canvas);
+    const canvasContext = canvas.getContext("2d");
+    drawLine(canvasContext, 50, 50, 350, 350, "#324");
+    canvasContext.createLinearGradient()
+}
+
+function drawLine(canvasContext, fromX, fromY, toX, toY, strokeColor = "#FFF") {
+    canvasContext.beginPath();
+    canvasContext.moveTo(fromX, fromY);
+    canvasContext.lineTo(toX, toY);
+    canvasContext.strokeStyle = strokeColor;
+    canvasContext.stroke();
+    canvasContext.createLinear
 }

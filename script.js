@@ -72,47 +72,79 @@ function winnerCheck() {
     });
 
     //winner logic
-    //vertical cells check
-    if (are3EqualAndNotNull(grid[0], grid[3], grid[6])) {
-        console.log(`The ${grid[0]} is the WINNER!`);
-        return grid[0];
-    }
-    if (are3EqualAndNotNull(grid[1], grid[4], grid[7])) {
-        console.log(`The ${grid[1]} is the WINNER!`);
-        return grid[1];
-    }
-    if (are3EqualAndNotNull(grid[2], grid[5], grid[8])) {
-        console.log(`The ${grid[2]} is the WINNER!`);
-        return grid[2];
-    }
+    switch (true) {
+        //vertical cells check
+        case are3EqualAndNotNull(grid[0], grid[3], grid[6]):
+            return grid[0];
+        case are3EqualAndNotNull(grid[1], grid[4], grid[7]):
+            return grid[1];
+        case are3EqualAndNotNull(grid[2], grid[5], grid[8]):
+            return grid[2];
 
-    //horizontal cells check
-    if (are3EqualAndNotNull(grid[0], grid[1], grid[2])) {
-        console.log(`The ${grid[0]} is the WINNER!`);
-        return grid[0];
-    }
-    if (are3EqualAndNotNull(grid[3], grid[4], grid[5])) {
-        console.log(`The ${grid[3]} is the WINNER!`);
-        return grid[3];
-    }
-    if (are3EqualAndNotNull(grid[6], grid[7], grid[8])) {
-        console.log(`The ${grid[6]} is the WINNER!`);
-        return grid[6];
-    }
+        //horizontal cells check
+        case are3EqualAndNotNull(grid[0], grid[1], grid[2]):
+            return grid[0];
+        case are3EqualAndNotNull(grid[3], grid[4], grid[5]):
+            return grid[3];
+        case are3EqualAndNotNull(grid[6], grid[7], grid[8]):
+            return grid[6];
 
-    //diagonal cells checks
-    if (are3EqualAndNotNull(grid[0], grid[4], grid[8])) {
-        console.log(`The ${grid[0]} is the WINNER!`);
-        return grid[0];
+        //diagonal cells checks
+        case are3EqualAndNotNull(grid[0], grid[4], grid[8]):
+            return grid[0];
+        case are3EqualAndNotNull(grid[2], grid[4], grid[6]):
+            return grid[2];
+        
+        //when is tie
+        case !grid.includes(null):
+            return 'tie'
+            
+        default:
+            break;
     }
-    if (are3EqualAndNotNull(grid[2], grid[4], grid[6])) {
-        console.log(`The ${grid[2]} is the WINNER!`);
-        return grid[2];
-    }
+    // //TODO: change to switch statements
+    // if (are3EqualAndNotNull(grid[0], grid[3], grid[6])) {
+    //     console.log(`The ${grid[0]} is the WINNER!`);
+    //     return grid[0];
+    // }
+    // if (are3EqualAndNotNull(grid[1], grid[4], grid[7])) {
+    //     console.log(`The ${grid[1]} is the WINNER!`);
+    //     return grid[1];
+    // }
+    // if (are3EqualAndNotNull(grid[2], grid[5], grid[8])) {
+    //     console.log(`The ${grid[2]} is the WINNER!`);
+    //     return grid[2];
+    // }
+
+    // //horizontal cells check
+    // if (are3EqualAndNotNull(grid[0], grid[1], grid[2])) {
+    //     console.log(`The ${grid[0]} is the WINNER!`);
+    //     return grid[0];
+    // }
+    // if (are3EqualAndNotNull(grid[3], grid[4], grid[5])) {
+    //     console.log(`The ${grid[3]} is the WINNER!`);
+    //     return grid[3];
+    // }
+    // if (are3EqualAndNotNull(grid[6], grid[7], grid[8])) {
+    //     console.log(`The ${grid[6]} is the WINNER!`);
+    //     return grid[6];
+    // }
+
+    // //diagonal cells checks
+    // if (are3EqualAndNotNull(grid[0], grid[4], grid[8])) {
+    //     console.log(`The ${grid[0]} is the WINNER!`);
+    //     return grid[0];
+    // }
+    // if (are3EqualAndNotNull(grid[2], grid[4], grid[6])) {
+    //     console.log(`The ${grid[2]} is the WINNER!`);
+    //     return grid[2];
+    // }
 
     //tie
-    console.log(`It's a Tie`);
-    return "tie";
+    // if(!grid.includes(null)){
+    //     console.log(`It's a Tie`);
+    //     return "tie";
+    // }
 
     // TODO: should be stopping the game here
 }
@@ -140,4 +172,10 @@ function drawLine(canvasContext, fromX, fromY, toX, toY, strokeColor = "#FFF") {
     canvasContext.strokeStyle = strokeColor;
     canvasContext.stroke();
     canvasContext.createLinear
+}
+
+function endGame(){
+    //print resault
+
+    //disable intractions
 }

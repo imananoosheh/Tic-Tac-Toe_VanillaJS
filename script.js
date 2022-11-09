@@ -123,7 +123,7 @@ function drawLine(canvasContext, fromX, fromY, toX, toY, strokeColor = "#FFF") {
 function endGame(winner){
     //print resault
     const gameWinnerContainer = document.querySelector('[data-winner-container]')
-    const winnerStatement = document.createElement('p')
+    const winnerStatement = document.createElement('h2')
     winnerStatement.textContent = winner==='tie' ? `The game was a tie` : `${winner.toLocaleUpperCase()} is the WINNER!!!`
     gameWinnerContainer.appendChild(winnerStatement)
     

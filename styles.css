@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
 :root{
     --player-1-color: repeating-linear-gradient(rgb(76, 0, 255), rgb(0, 217, 255));
     --player-2-color: repeating-linear-gradient(rgb(0, 247, 255), rgb(255, 0, 128));
@@ -10,6 +12,19 @@
     width: 100%;
     height: 100%;
     outline: 1px red solid;
+}
+
+.winner-container{
+    font-family: 'Bangers', cursive;
+    font-size: xx-large;
+    text-align: center;
+}
+
+.controllers{
+    margin: 1.5rem 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
 }
 
 .grid-container {

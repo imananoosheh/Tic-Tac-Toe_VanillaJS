@@ -18,7 +18,10 @@ randomPlayButton.addEventListener("click", () => {
         cellArray.splice(cellArray.indexOf(randomIndex), 1);
         turn = turn === "x" ? "o" : "x";
         let result = winnerCheck();
-        if (result === "x" || result === "o") break;
+        if (result) {
+            endGame(result)
+            break
+        };
     }
 });
 
@@ -40,25 +43,40 @@ function play(cell) {
 
     //checking if we have a winner
     let result = winnerCheck();
-    if (result === "x" || result === "o") {
-        console.log(`result is: ${result}`);
-    } //TODO: the end needs to be defined and stop from clicking the cells
-
-    if (result === "tie") {
-        console.log(`result is: ${result}`);
-    }
-    // toggles the turn
     turn = turn === "x" ? "o" : "x";
+    endGame(result)
+    // if (result === "x" || result === "o") {
+    //     console.log(`result is: ${result}`);
+    // } //TODO: the end needs to be defined and stop from clicking the cells
+
+    // if (result === "tie") {
+    //     console.log(`result is: ${result}`);
+    // }
+    // toggles the turn
 }
 
 function reset() {
     cellList.forEach((cell) => {
         cell.className = "cell";
     });
+    const overlay = document.querySelector('[data-overlay]')
+    if(overlay){
+        overlay.remove();
+    }
+    const gameWinnerContainer = document.querySelector('[data-winner-container]')
+    gameWinnerContainer.innerHTML = ''
 }
 
 function winnerCheck() {
+    //winner logic
+    /* possible wins are derived from mapping below:
+    0   1   2
+    3   4   5
+    6   7   8
+    */
+    const possibleWins = [[0,3,6],[1,4,7],[2,5,8],[0,1,2],[3,4,5],[6,7,8],[0,4,8],[2,4,6]]
     let grid = [];
+    //mapping user inputs to the grid
     cellList.forEach((cell) => {
         let mark;
         if (cell.classList.contains("x")) {
@@ -71,80 +89,14 @@ function winnerCheck() {
         grid.push(mark);
     });
 
-    //winner logic
-    switch (true) {
-        //vertical cells check
-        case are3EqualAndNotNull(grid[0], grid[3], grid[6]):
-            return grid[0];
-        case are3EqualAndNotNull(grid[1], grid[4], grid[7]):
-            return grid[1];
-        case are3EqualAndNotNull(grid[2], grid[5], grid[8]):
-            return grid[2];
-
-        //horizontal cells check
-        case are3EqualAndNotNull(grid[0], grid[1], grid[2]):
-            return grid[0];
-        case are3EqualAndNotNull(grid[3], grid[4], grid[5]):
-            return grid[3];
-        case are3EqualAndNotNull(grid[6], grid[7], grid[8]):
-            return grid[6];
-
-        //diagonal cells checks
-        case are3EqualAndNotNull(grid[0], grid[4], grid[8]):
-            return grid[0];
-        case are3EqualAndNotNull(grid[2], grid[4], grid[6]):
-            return grid[2];
-        
-        //when is tie
-        case !grid.includes(null):
-            return 'tie'
-            
-        default:
-            break;
+    for(let winCase of possibleWins){
+        if(are3EqualAndNotNull(grid[winCase[0]],grid[winCase[1]],grid[winCase[2]])){
+            return grid[winCase[0]]
+        }
     }
-    // //TODO: change to switch statements
-    // if (are3EqualAndNotNull(grid[0], grid[3], grid[6])) {
-    //     console.log(`The ${grid[0]} is the WINNER!`);
-    //     return grid[0];
-    // }
-    // if (are3EqualAndNotNull(grid[1], grid[4], grid[7])) {
-    //     console.log(`The ${grid[1]} is the WINNER!`);
-    //     return grid[1];
-    // }
-    // if (are3EqualAndNotNull(grid[2], grid[5], grid[8])) {
-    //     console.log(`The ${grid[2]} is the WINNER!`);
-    //     return grid[2];
-    // }
-
-    // //horizontal cells check
-    // if (are3EqualAndNotNull(grid[0], grid[1], grid[2])) {
-    //     console.log(`The ${grid[0]} is the WINNER!`);
-    //     return grid[0];
-    // }
-    // if (are3EqualAndNotNull(grid[3], grid[4], grid[5])) {
-    //     console.log(`The ${grid[3]} is the WINNER!`);
-    //     return grid[3];
-    // }
-    // if (are3EqualAndNotNull(grid[6], grid[7], grid[8])) {
-    //     console.log(`The ${grid[6]} is the WINNER!`);
-    //     return grid[6];
-    // }
-
-    // //diagonal cells checks
-    // if (are3EqualAndNotNull(grid[0], grid[4], grid[8])) {
-    //     console.log(`The ${grid[0]} is the WINNER!`);
-    //     return grid[0];
-    // }
-    // if (are3EqualAndNotNull(grid[2], grid[4], grid[6])) {
-    //     console.log(`The ${grid[2]} is the WINNER!`);
-    //     return grid[2];
-    // }
-
-    //tie
-    // if(!grid.includes(null)){
-    //     console.log(`It's a Tie`);
-    //     return "tie";
-    // }
+    if(!grid.includes(null)){
+        return 'tie'
+    }
 
     // TODO: should be stopping the game here
 }
@@ -174,8 +126,17 @@ function drawLine(canvasContext, fromX, fromY, toX, toY, strokeColor = "#FFF") {
     canvasContext.createLinear
 }
 
-function endGame(){
+function endGame(winner){
     //print resault
-
+    const gameWinnerContainer = document.querySelector('[data-winner-container]')
+    const winnerStatement = document.createElement('p')
+    winnerStatement.textContent = winner==='tie' ? `The game was a tie` : `${winner.toLocaleUpperCase()} is the WINNER!!!`
+    gameWinnerContainer.appendChild(winnerStatement)
+    
     //disable intractions
+    const overlay = document.createElement('div')
+    overlay.setAttribute('data-overlay','')
+    overlay.style = 'background:#fff;opacity:.3;width:100%;height:100%;position:absolute';
+    const gridContainer = document.querySelector("[data-grid-container]");
+    gridContainer.appendChild(overlay)
 }

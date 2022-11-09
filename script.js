@@ -43,16 +43,10 @@ function play(cell) {
 
     //checking if we have a winner
     let result = winnerCheck();
+    if(result != undefined){
+        endGame(result)
+    }
     turn = turn === "x" ? "o" : "x";
-    endGame(result)
-    // if (result === "x" || result === "o") {
-    //     console.log(`result is: ${result}`);
-    // } //TODO: the end needs to be defined and stop from clicking the cells
-
-    // if (result === "tie") {
-    //     console.log(`result is: ${result}`);
-    // }
-    // toggles the turn
 }
 
 function reset() {

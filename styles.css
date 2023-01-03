@@ -18,6 +18,8 @@
     font-family: 'Bangers', cursive;
     font-size: xx-large;
     text-align: center;
+    align-self: stretch;
+    height: 15vmin;
 }
 
 .controllers{
@@ -27,15 +29,22 @@
     justify-content: space-evenly;
 }
 
+.game-container{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-around;
+}
+
 .grid-container {
-    position: relative;
-    margin: auto;    
+    position: relative; 
     display: grid;
-    grid-template-columns: repeat(3, auto);
-    grid-template-rows: repeat(3, auto);
+    align-self: center;
+    grid-template-columns: repeat(3, 25vmin);
+    grid-template-rows: repeat(3, 25vmin);
     gap: 1vw;
-    width: 80vw;
-    height: 80vw;
+    width: 77vmin;
+    height: 77vmin;
 }
 
 .cell {
